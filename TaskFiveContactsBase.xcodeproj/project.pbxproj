@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C20859D92247BE7C0041A04A /* ContactBase.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C20859D72247BE7C0041A04A /* ContactBase.xcdatamodeld */; };
+		C20859DB2247BED00041A04A /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20859DA2247BED00041A04A /* CoreDataManager.swift */; };
 		C27B3B7B2241786A0092225A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C27B3B7A2241786A0092225A /* AppDelegate.swift */; };
 		C27B3B7D2241786A0092225A /* ContactsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C27B3B7C2241786A0092225A /* ContactsController.swift */; };
 		C27B3B802241786A0092225A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C27B3B7E2241786A0092225A /* Main.storyboard */; };
@@ -19,6 +21,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C20859D82247BE7C0041A04A /* ContactBase.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ContactBase.xcdatamodel; sourceTree = "<group>"; };
+		C20859DA2247BED00041A04A /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		C27B3B772241786A0092225A /* TaskFiveContactsBase.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TaskFiveContactsBase.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C27B3B7A2241786A0092225A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C27B3B7C2241786A0092225A /* ContactsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsController.swift; sourceTree = "<group>"; };
@@ -63,17 +67,43 @@
 			isa = PBXGroup;
 			children = (
 				C27B3B7A2241786A0092225A /* AppDelegate.swift */,
-				C27B3B922242B2720092225A /* InfoViewController.swift */,
-				C27B3B7C2241786A0092225A /* ContactsController.swift */,
-				C27B3B90224178E60092225A /* UIColorTheme.swift */,
-				C27B3B8C224178B20092225A /* CreateContactController.swift */,
+				C2F67FC0224982E900DCEF7B /* Extensions */,
+				C2F67FBF224982DF00DCEF7B /* CoreData */,
+				C2F67FBE224982C600DCEF7B /* Controller */,
 				C27B3B7E2241786A0092225A /* Main.storyboard */,
 				C27B3B8E224178BF0092225A /* Contact.swift */,
 				C27B3B812241786A0092225A /* Assets.xcassets */,
 				C27B3B832241786A0092225A /* LaunchScreen.storyboard */,
+				C20859D72247BE7C0041A04A /* ContactBase.xcdatamodeld */,
 				C27B3B862241786A0092225A /* Info.plist */,
 			);
 			path = TaskFiveContactsBase;
+			sourceTree = "<group>";
+		};
+		C2F67FBE224982C600DCEF7B /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				C27B3B7C2241786A0092225A /* ContactsController.swift */,
+				C27B3B8C224178B20092225A /* CreateContactController.swift */,
+				C27B3B922242B2720092225A /* InfoViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		C2F67FBF224982DF00DCEF7B /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				C20859DA2247BED00041A04A /* CoreDataManager.swift */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
+		C2F67FC0224982E900DCEF7B /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				C27B3B90224178E60092225A /* UIColorTheme.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -153,6 +183,8 @@
 				C27B3B91224178E60092225A /* UIColorTheme.swift in Sources */,
 				C27B3B932242B2720092225A /* InfoViewController.swift in Sources */,
 				C27B3B8F224178BF0092225A /* Contact.swift in Sources */,
+				C20859DB2247BED00041A04A /* CoreDataManager.swift in Sources */,
+				C20859D92247BE7C0041A04A /* ContactBase.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -352,6 +384,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		C20859D72247BE7C0041A04A /* ContactBase.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				C20859D82247BE7C0041A04A /* ContactBase.xcdatamodel */,
+			);
+			currentVersion = C20859D82247BE7C0041A04A /* ContactBase.xcdatamodel */;
+			path = ContactBase.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = C27B3B6F224178690092225A /* Project object */;
 }

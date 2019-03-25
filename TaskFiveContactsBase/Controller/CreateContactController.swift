@@ -7,18 +7,24 @@
 //
 
 import UIKit
+import CoreData
 
 protocol CreateContactControllerDelegate{
     func didAddContact(contact: Contact)
+    func didEditContact(contact: Contact)
 }
 
 
-class CreateContactController: UIViewController{
+class CreateContactController: UIViewController, UITextFieldDelegate{
     
     
     var delegate: CreateContactControllerDelegate?
     
-    
+    var contact: Contact?{
+        didSet{
+            setupText()
+        }
+    }
     
     let nameLabel: UILabel = {
         let label = UILabel()
@@ -31,7 +37,7 @@ class CreateContactController: UIViewController{
     let nameTextField:UITextField = {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.keyboardType = .numberPad
+        textField.becomeFirstResponder()
         textField.placeholder = "Type Name"
         return textField
     }()
@@ -47,7 +53,8 @@ class CreateContactController: UIViewController{
     let phoneTextField:UITextField = {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.placeholder = "Type Name"
+        textField.placeholder = "Type Phone"
+        textField.keyboardType = .numberPad
         return textField
     }()
     
@@ -81,6 +88,11 @@ class CreateContactController: UIViewController{
     
     
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        navigationItem.title = contact == nil ? "New Contact" : "Edit Contact"
+    }
     
     
     
@@ -88,15 +100,30 @@ class CreateContactController: UIViewController{
         super.viewDidLoad()
         
         
-        navigationItem.title = "Create Contact"
-        
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(handleCancel))
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(handleSave))
         
-        view.backgroundColor = #colorLiteral(red: 0.03529411765, green: 0.1764705882, blue: 0.2509803922, alpha: 1)
+        view.backgroundColor = .pie
+        hideKeyboard()
         
         setupUI()
         
+    }
+    
+    func hideKeyboard(){
+        let tapGest = UITapGestureRecognizer(target: self, action: #selector(tapHide))
+        self.view.addGestureRecognizer(tapGest)
+    }
+    
+    @objc func tapHide(){
+       view.endEditing(true)
+    }
+    private func setupText(){
+        self.cityTextField.text = self.contact?.city
+        self.nameTextField.text = self.contact?.name
+        self.adressTF.text = self.contact?.adress
+        guard let phoneNumber = self.contact?.phoneNumber else {return}
+        self.phoneTextField.text = String(phoneNumber)
     }
     
     private func setupUI(){
@@ -177,18 +204,63 @@ class CreateContactController: UIViewController{
     @objc private func handleSave(){
         print("trying to save contact")
         
+        if contact == nil{
+            createContact()
+        } else {
+            updateContact()
+        }
+        
+        
+    }
+    
+    private func updateContact(){
         guard let name = self.nameTextField.text else { return }
-        guard let phone = Int(self.phoneTextField.text!) else { return }
+        guard let phone = Int64(self.phoneTextField.text!) else { return }
         guard let city = self.cityTextField.text else {return}
         guard let adress = self.adressTF.text else {return}
         
+        contact?.name = name
+        contact?.phoneNumber = phone
+        contact?.city = city
+        contact?.adress = adress
+        
+        let context = CoreDataManager.shared.persistentContainer.viewContext
+        
+        do {
+            try context.save()
+            dismiss(animated: true) {self.delegate?.didEditContact(contact: self.contact!)}
+        } catch { print("Can't update")}
+        
+       
+        
+    }
+    
+    private func createContact(){
+        guard let name = self.nameTextField.text else { return }
+        guard let phone = Int64(self.phoneTextField.text!) else { return }
+        guard let city = self.cityTextField.text else {return}
+        guard let adress = self.adressTF.text else {return}
+        self.view.endEditing(true)
+        
         dismiss(animated: true) {
             
-            let contact = Contact(name: name, phoneNumber: phone, city: city, adress: adress)
-            print(contact)
-            self.delegate?.didAddContact(contact: contact)
+            let context = CoreDataManager.shared.persistentContainer.viewContext
+            
+            let entity = NSEntityDescription.insertNewObject(forEntityName: "Contact", into: context) as! Contact
+            entity.setValue(name, forKey: "name")
+            entity.setValue(phone, forKey: "phoneNumber")
+            entity.setValue(city, forKey: "city")
+            entity.setValue(adress, forKey: "adress")
+            
+            do{
+                try context.save()
+            } catch let saveErr{
+                print("Can't Save save err")
+            }
+            
+            
+            self.delegate?.didAddContact(contact: entity)
         }
-        
     }
     
     @objc func handleCancel(){

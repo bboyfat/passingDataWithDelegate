@@ -8,6 +8,8 @@
 
 
 import UIKit
+import CoreData
+
 
 class CustomNavigetionController: UINavigationController{
     override var preferredStatusBarStyle: UIStatusBarStyle{
@@ -25,9 +27,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         
         UINavigationBar.appearance().tintColor = .white
-        UINavigationBar.appearance().backgroundColor = .red
+        UINavigationBar.appearance().backgroundColor = .lightGreen
         UINavigationBar.appearance().isTranslucent = false
-        UINavigationBar.appearance().barTintColor = .lightRed
+        UINavigationBar.appearance().barTintColor = .lightGreen
         
         UINavigationBar.appearance().prefersLargeTitles = true
         UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]

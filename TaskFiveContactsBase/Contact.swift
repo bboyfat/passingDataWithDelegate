@@ -9,11 +9,11 @@
 import Foundation
 
 
-struct Contact{
-    
-    let name: String
-    let phoneNumber: Int
-    
-    let city: String
-    let adress: String
-}
+//struct Contact{
+//    
+//    let name: String
+//    let phoneNumber: Int
+//    
+//    let city: String
+//    let adress: String
+//}

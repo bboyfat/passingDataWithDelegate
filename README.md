@@ -1,1 +1,3 @@
 # passingDataWithDelegate
+# CRUD
+# CoreData
